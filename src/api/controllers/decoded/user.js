@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 // ----- # Login role user # ----- //
 router.get("/getuserinfo", async (req, res) => {
-  const cookie = req.headers.cookie;
+  const cookie = req.headers.cookie.split("=")[1];
   if (cookie) {
     jwt.verify(cookie, process.env.USER_TOKEN_SECRET, {}, (err, decoded) => {
       if (err) {
