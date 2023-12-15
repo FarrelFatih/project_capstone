@@ -21,6 +21,9 @@ router.post("/roleuser", async (req, res) => {
         role: "user",
       },
     });
+    if (!userDoc) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const decodedPassword = bcrypt.compareSync(password, userDoc.password);
     if (decodedPassword) {
       jwt.sign(
