@@ -23,6 +23,7 @@ model Users {
   createdAt DateTime @default(now())
   profilePicture profilePicture?
   dataKapal DataKapal[]
+  Layanan Layanan[]
 }
 
 model Layanan {
@@ -33,6 +34,8 @@ model Layanan {
   pelabuhan        String?
   satuanKerja      String?
   createdAt        DateTime @default(now())
+  admin_id         String
+  users            Users    @relation(fields: [admin_id], references: [id])
 }
 
 model profilePicture {

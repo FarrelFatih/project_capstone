@@ -10,6 +10,7 @@ const authControllers = require("./api/controllers/authentication/auth.js");
 const kapalControllers = require("./api/controllers/user/kapal.js");
 const decodedControllers = require("./api/controllers/decoded/user.js");
 const layananControllers = require("./api/controllers/admin/layanan.js");
+const adminControllers = require("./api/controllers/admin/admin.js");
 
 const app = express();
 const PORT = 8080;
@@ -61,9 +62,10 @@ const verifyTokenAdmin = (req, res, next) => {
 
 // ----- # User routes # ----- //
 app.use("/api/user", userControllers);
+app.use("/api/admin", adminControllers);
 app.use("/api/authentication/", authControllers);
 app.use("/api/decoded/", decodedControllers);
 app.use("/api/kapal/user", verifyToken, kapalControllers);
-app.use("/api/layanan/admin", verifyToken, layananControllers);
+app.use("/api/layanan/admin", verifyTokenAdmin, layananControllers);
 
 app.listen(PORT, () => console.log(`Running Express Server on Port ${PORT}!`));

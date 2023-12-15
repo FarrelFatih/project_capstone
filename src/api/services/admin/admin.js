@@ -1,5 +1,4 @@
 const {
-  findAdmin,
   findAdminById,
   insertAdmin,
   updateAdmin,
@@ -8,48 +7,45 @@ const bcrypt = require("bcrypt");
 
 const salt = bcrypt.genSaltSync(10);
 
-const getAllAdmins = async () => {
-  const admin = await findAdmin();
-
-  return admin;
-};
-
+// ----- # Get admin By ID # ----- //
 const getAdminById = async (id) => {
-  const admin = await findAdminById(id);
-
-  if (!admin) {
-    throw new Error("admin not found");
+  try {
+    const admin = await findAdminById(id);
+    if (!admin) {
+      throw new Error("admin not found");
+    }
+    return admin;
+  } catch (err) {
+    console.log(err);
   }
-
-  return admin;
 };
 
+// ----- # Create admin # ----- //
 const createAdmin = async (newAdminData) => {
-  const { password } = newAdminData;
-  const hashPassword = bcrypt.hashSync(password, salt);
-  const admin = await insertAdmin(newAdminData, hashPassword);
+  try {
+    const { password } = newAdminData;
+    const hashPassword = bcrypt.hashSync(password, salt);
+    const admin = await insertAdmin(newAdminData, hashPassword);
 
-  return admin;
+    return admin;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
+// ----- # Update admin By Id # ----- //
 const updateAdminById = async (id, adminData) => {
-  await getAdminById(id);
-
-  const admin = await updateAdmin(id, adminData);
-
-  return admin;
-};
-
-const deleteAdminById = async (id) => {
-  await getProductById(id);
-
-  await deleteAdmin(id);
+  try {
+    await getAdminById(id);
+    const admin = await updateAdmin(id, adminData);
+    return admin;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = {
-  getAllAdmins,
   getAdminById,
   createAdmin,
   updateAdminById,
-  deleteAdminById,
 };

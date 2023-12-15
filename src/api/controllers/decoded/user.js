@@ -25,4 +25,19 @@ router.get("/getuserinfo", async (req, res) => {
   }
 });
 
+router.get("/getAdminInfo", async (req, res) => {
+  const cookie = req.headers.cookie.split("=")[1];
+  if (cookie) {
+    jwt.verify(cookie, process.env.ADMIN_TOKEN_SECRET, {}, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: "Invalid Token" });
+      } else {
+        res.send(decoded);
+      }
+    });
+  } else {
+    return res.status(401).json({ message: "No cookie was found" });
+  }
+});
+
 module.exports = router;

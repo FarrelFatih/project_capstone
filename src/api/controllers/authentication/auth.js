@@ -49,9 +49,47 @@ router.post("/roleuser", async (req, res) => {
   }
 });
 
+router.post("/roleadmin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const userDoc = await prisma.users.findUnique({
+      where: {
+        email: email,
+        role: "admin",
+      },
+    });
+    if (!userDoc) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const decodedPassword = bcrypt.compareSync(password, userDoc.password);
+    if (decodedPassword) {
+      jwt.sign(
+        {
+          email,
+          id: userDoc.id,
+          firstsName: userDoc.firstName,
+          lastName: userDoc.lastName,
+          role: userDoc.role,
+        },
+        process.env.USER_TOKEN_SECRET,
+        {},
+        (err, token) => {
+          res.cookie("token", token);
+          res.send("cookie set");
+        }
+      );
+    } else {
+      res.status(404).json({ message: "Wrong Password" });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.post("/logout", async (req, res) => {
   try {
-    res.cookie("token", "").json("logout  success");
+    res.cookie("token", "").json({ message: "logout  success" });
   } catch (err) {
     console.log(err);
   }
