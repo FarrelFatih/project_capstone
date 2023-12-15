@@ -1,5 +1,8 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const { config } = require("dotenv");
+const morgan = require("morgan");
 
 // ----- # Import controllers # ----- //
 const userControllers = require("./api/controllers/user/user.js");
@@ -11,6 +14,9 @@ const app = express();
 const PORT = 8080;
 
 app.use(express.json());
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(morgan("tiny"));
+config();
 
 // ----- # Middleware for user role # ----- //
 const verifyToken = (req, res, next) => {
