@@ -10,22 +10,19 @@ const app = express();
 app.use(cookieParser());
 
 // ----- # Login role user # ----- //
-// router.get("/getuserinfo", async (req, res) => {
-//   const token = req.headers.cookie;
-//   c
-
-//   jwt.verify(token, process.env.USER_TOKEN_SECRET, {}, (err, decoed)=>{
-//     if (err) {
-//       return res.status(401).json({ message: "Invalid Tokne"})
-//     }
-
-//   })
-//   try {
-//     if ()
-//     res.json;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
+router.get("/getuserinfo", async (req, res) => {
+  const cookie = req.headers.cookie;
+  if (cookie) {
+    jwt.verify(cookie, process.env.USER_TOKEN_SECRET, {}, (err, decoded) => {
+      if (err) {
+        return res.status(401).json({ message: "Invalid Token" });
+      } else {
+        res.send(decoded);
+      }
+    });
+  } else {
+    return res.status(401).json({ message: "No cookie was found" });
+  }
+});
 
 module.exports = router;
