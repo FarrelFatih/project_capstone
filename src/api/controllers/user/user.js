@@ -8,7 +8,11 @@ const jwt = require("jsonwebtoken");
 const app = express();
 app.use(cookieParser);
 
-const { createUser, updateUserById } = require("../../services/user/user.js");
+const {
+  createUser,
+  updateUserById,
+  getUserById,
+} = require("../../services/user/user.js");
 
 // ----- # Create User  # ----- //
 router.post("/createuser", async (req, res) => {
@@ -24,6 +28,19 @@ router.post("/createuser", async (req, res) => {
   }
 });
 
+// ----- # Get User By Id # ----- //
+router.post("/getuserbyid", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const user = await getUserById(id);
+    res.send({
+      data: user,
+      message: "User get successfully",
+    });
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
+});
 // ----- # Update User By Id # ----- //
 router.put("/updateUser", async (req, res) => {
   try {
