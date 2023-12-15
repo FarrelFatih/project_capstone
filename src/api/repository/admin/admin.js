@@ -1,11 +1,13 @@
 const prisma = require("../../../configs/connection");
 
+// ----- # Get all Admin # ----- //
 const findAdmin = async () => {
   const admin = await prisma.admins.findMany();
 
   return admin;
 };
 
+// ----- # Get admin by Id # ----- //
 const findAdminById = async (id) => {
   try {
     const admin = await prisma.admins.findUnique({
@@ -19,6 +21,7 @@ const findAdminById = async (id) => {
   }
 };
 
+// ----- # Create Admin # ----- //
 const insertAdmin = async (adminData, hashPassword) => {
   const admin = await prisma.users.create({
     data: {
@@ -35,6 +38,7 @@ const insertAdmin = async (adminData, hashPassword) => {
   return admin;
 };
 
+// ----- # Update Admin By Id # ----- //
 const updateAdmin = async (id, adminData) => {
   const admin = await prisma.admins.update({
     where: {

@@ -29,9 +29,9 @@ router.post("/createuser", async (req, res) => {
 });
 
 // ----- # Get User By Id # ----- //
-router.get("/getuserbyid", async (req, res) => {
+router.get("/getuserbyid/:id", async (req, res) => {
   try {
-    const { id } = req.body;
+    const id = req.params.id;
     const user = await getUserById(id);
     res.send({
       data: user,

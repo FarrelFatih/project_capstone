@@ -25,6 +25,7 @@ router.get("/getuserinfo", async (req, res) => {
   }
 });
 
+// ----- # Login role admin # ----- //
 router.get("/getAdminInfo", async (req, res) => {
   const cookie = req.headers.cookie.split("=")[1];
   if (cookie) {

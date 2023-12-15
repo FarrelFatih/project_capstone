@@ -6,7 +6,7 @@ const {
   deleteLayanan,
 } = require("../../repository/admin/layanan.js");
 
-// ----- # Get All Boat # ----- //
+// ----- # Get All Layanan # ----- //
 const getAllLayanan = async () => {
   try {
     const admin = await findLayanan();
@@ -16,7 +16,7 @@ const getAllLayanan = async () => {
   }
 };
 
-// ----- # Get Boat By Id# ----- //
+// ----- # Get Layanan By Id# ----- //
 const getLayananById = async (id) => {
   try {
     const admin = await findLayananId(id);
@@ -31,7 +31,7 @@ const getLayananById = async (id) => {
   }
 };
 
-// ----- # Create Boat # ----- //
+// ----- # Create Layanan # ----- //
 const createLayanan = async (newDataLayanan) => {
   try {
     const admin = await insertLayanan(newDataLayanan);
@@ -42,7 +42,7 @@ const createLayanan = async (newDataLayanan) => {
   }
 };
 
-// ----- # Update Boat # ----- //
+// ----- # Update Layanan # ----- //
 const updateLayananById = async (id, datalayanan) => {
   try {
     await getLayananById(id);
@@ -55,7 +55,7 @@ const updateLayananById = async (id, datalayanan) => {
   }
 };
 
-// ----- # Delete Boat # ----- //
+// ----- # Delete Layanan # ----- //
 const deleteLayananById = async (id) => {
   try {
     await getLayananById(id);

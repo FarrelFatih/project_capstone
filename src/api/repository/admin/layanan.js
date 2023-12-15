@@ -1,6 +1,6 @@
 const prisma = require("../../../configs/connection");
 
-// ----- # Get all boat # ----- //
+// ----- # Get all Layanan # ----- //
 const findLayanan = async () => {
   try {
     const layanan = await prisma.layanan.findMany();
@@ -11,7 +11,7 @@ const findLayanan = async () => {
   }
 };
 
-// ----- # Get Boat By Id # ----- //
+// ----- # Get Layanan By Id # ----- //
 const findLayananId = async (id) => {
   try {
     const layanan = await prisma.layanan.findUnique({
@@ -25,7 +25,7 @@ const findLayananId = async (id) => {
   }
 };
 
-// ----- # Create Boat # ----- //
+// ----- # Create Layanan # ----- //
 const insertLayanan = async (datalayanan) => {
   try {
     const layanan = await prisma.layanan.create({
@@ -45,7 +45,7 @@ const insertLayanan = async (datalayanan) => {
   }
 };
 
-// ----- # Update Boat # ----- //
+// ----- # Update Layanan # ----- //
 const updateLayanan = async (id, datalayanan) => {
   try {
     const layanan = await prisma.layanan.update({
@@ -67,7 +67,7 @@ const updateLayanan = async (id, datalayanan) => {
   }
 };
 
-// ----- # Delete Boat # ----- //
+// ----- # Delete Layanan # ----- //
 const deleteLayanan = async (id) => {
   try {
     const layanan = await prisma.datalayanan.delete({
